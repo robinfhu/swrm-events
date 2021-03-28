@@ -6,10 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 const users = generateData()
 
-const layout = <div>
+const layout = <React.Fragment>
     <Header brand='My App' />
     <UserGrid users={users} />
-    </div>
+    </React.Fragment>
 
 
 ReactDOM.render(
