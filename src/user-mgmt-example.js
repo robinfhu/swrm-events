@@ -33,24 +33,7 @@ class TableBody extends React.Component {
     }
 
     render() {
-        let usersSorted = [...this.props.users]
-        if (this.props.sortKey) {
-            const key = this.props.sortKey
-            usersSorted = usersSorted.sort((a,b)=> {
-                let valA = a[key], valB = b[key]
-
-                if (valA < valB) {
-                    return -1 * this.props.sortDir
-                } 
-                else if (valA > valB) {
-                    return 1 * this.props.sortDir
-                }
-                else {
-                    return 0
-                }
-            })
-        }
-        const rows = usersSorted.map((user)=> {
+        const rows = this.props.users.map((user)=> {
             const cells = this.props.headers.map((h,i)=> {
                 let val = user[h]
                 if (h === 'Salary') {
@@ -115,47 +98,86 @@ export class UserGrid extends React.Component {
         this.state = {
             users: props.users,
             sortKey: null,
-            sortDir: null
+            sortDir: null,
+            quickFilter: ''        
         }
     }
 
     onSort(sortKey) {
         this.setState((state,props)=> {
+            let newState = {}
             if (state.sortKey === sortKey) {
                 if (state.sortDir === 1) {
-                    return {sortDir: -1}
+                    newState = {sortDir: -1}
                 }
                 else {
-                    return {sortDir: null, sortKey: null}
+                    newState = {sortDir: null, sortKey: null}
                 }
             }
             else {
-                return {sortKey: sortKey, sortDir: 1}
+                newState = {sortKey: sortKey, sortDir: 1}
             }
+
+            return newState
         })
     }
 
+    onSearch(e) {
+       let val = e.target.value
+       this.setState({quickFilter: val}) 
+    }
+
     render() {
-        if (!(this.state.users instanceof Array) && this.state.users.length <= 0) {
+        if (!(this.props.users instanceof Array) && this.props.users.length <= 0) {
             return <div>No Users Found</div>
         }
 
         let headers = []
-        for(const key in this.state.users[0]) {
+        for(const key in this.props.users[0]) {
             headers.push(key)
         }
 
-        return <table className='table table-sm'>
-            <TableHeader 
-                headers={headers} 
-                sortKey={this.state.sortKey}
-                sortDir={this.state.sortDir}
-                onSort={this.onSort.bind(this)} />
-            <TableBody 
-                users={this.state.users} 
-                sortKey={this.state.sortKey}
-                sortDir={this.state.sortDir}
-                headers={headers} />
-        </table>
+        let usersSorted = [...this.props.users]
+        if (this.state.quickFilter) {
+            usersSorted = usersSorted.filter((user)=> {
+                return user.Name.toLowerCase().includes(this.state.quickFilter.toLowerCase())
+            })
+        }
+
+        if (this.state.sortKey) {
+            const key = this.state.sortKey
+            usersSorted = usersSorted.sort((a,b)=> {
+                let valA = a[key], valB = b[key]
+
+                if (valA < valB) {
+                    return -1 * this.state.sortDir
+                } 
+                else if (valA > valB) {
+                    return 1 * this.state.sortDir
+                }
+                else {
+                    return 0
+                }
+            })
+        }
+
+        return <div>
+            <h2>User Management Table</h2>
+            <input 
+                type='text' 
+                onChange={this.onSearch.bind(this)}
+                placeholder='Search...'/>
+            <table className='table table-sm'>
+                
+                <TableHeader 
+                    headers={headers} 
+                    sortKey={this.state.sortKey}
+                    sortDir={this.state.sortDir}
+                    onSort={this.onSort.bind(this)} />
+                <TableBody 
+                    users={usersSorted}
+                    headers={headers} />
+            </table>
+        </div>
     }
 }
