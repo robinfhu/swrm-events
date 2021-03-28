@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Header from "./header"
-import HelloWorld from "./hello-world.js"
+import {UserGrid, generateData} from "./user-mgmt-example.js"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const list = [1,2,3]
+const users = generateData()
 
 const layout = <div>
-    <Header brand='My App' nvData={list} />
-    <HelloWorld name='Robin'/>
+    <Header brand='My App' />
+    <UserGrid users={users} />
     </div>
 
 

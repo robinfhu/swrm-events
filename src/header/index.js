@@ -20,7 +20,7 @@ export default class Header extends React.Component {
         const navItems = this.state.navItems.map((d)=> {
             const active = (this.state.active === d.name) ? 'active' : ''
 
-            return <li className='nav-item me-3' key={d.name}>
+            return <li className='nav-item mr-3' key={d.name}>
                 <a className={`nav-link ${active}`}>{d.name}</a>
             </li>
         })
