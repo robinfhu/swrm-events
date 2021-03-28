@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Header from "./header"
 import HelloWorld from "./hello-world.js"
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const list = [1,2,3]
 
