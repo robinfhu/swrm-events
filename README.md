@@ -1,8 +1,8 @@
 # react-boilerplate
 A simple react website
 
-## How to manually compile JSX code.
+## How to build app
 
-    npx babel -d public/src --presets react-app/prod src
-
-    npx babel --watch src -d public/src --presets react-app/prod
+    npx webpack
+    
+    npx webpack serve
