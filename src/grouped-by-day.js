@@ -10,7 +10,8 @@ function DayButton(props) {
 
 function EventsList(props) {
     let { date } = useParams();
-    let eventsList = props.sessions.getData().filter((item)=> item.DateKey === date).map((item) => {
+    let eventsList = props.sessions.getParentSessions()
+    .filter((item)=> item.DateKey === date).map((item) => {
         return <EventItem data={item} key={item.SessionID}></EventItem>;
     })
     return <div>

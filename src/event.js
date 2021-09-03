@@ -7,10 +7,11 @@ export default class EventItem extends React.Component {
     }
 
     render() {
-        let {SessionTitle,DateKey,StartTime,EndTime,Location} = this.props.data;
+        let {SessionTitle,DateKey,StartTime,EndTime,Location,SessionDescription} = this.props.data;
         return <div className="event-item shadow-sm mb-3 border p-1">
-            <strong>{SessionTitle}</strong><br/>
-            <span>{StartTime} - {EndTime}</span> | <span className="text-muted">{formatDate(DateKey)}</span> <br/>
+            <strong>{SessionDescription}</strong><br/>
+            <span className="small-text">{StartTime} - {EndTime} | <span className="text-muted">{formatDate(DateKey)}</span></span>
+             <br/>
             <span>{Location}</span>
         </div>
     }

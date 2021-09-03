@@ -8,6 +8,10 @@ export default class Sessions {
         return this.data; 
     }
 
+    getParentSessions() {
+        return this.data.filter((item)=> item.Parent === "")
+    }
+
     getDates() {
         return this.dates;
     }
