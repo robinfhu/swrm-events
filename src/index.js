@@ -5,11 +5,14 @@ import {UserGrid, generateData} from "./user-mgmt-example.js"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import HelloWorld from "./hello-world.js"
+import GroupedByDay from './grouped-by-day'
+import GroupedByRoom from './grouped-by-room'
 import {
     HashRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect
   } from "react-router-dom";
   
 const users = generateData()
@@ -23,14 +26,18 @@ fetch("test.json").then((response)=> {
 });
 
 const layout = <Router>
-    <Header brand='SWRM 2021' />
+    <Header brand='SWRM 2021 Events' />
     <Switch>
-        <Route exact path="/">
-            <h1>Home Page</h1>
+        <Route path="/by-day">
+            <GroupedByDay></GroupedByDay>
         </Route>
         
-        <Route path="/hello-world">
-            <HelloWorld name="Robin"/>
+        <Route path="/by-room">
+            <GroupedByRoom></GroupedByRoom>
+        </Route>
+
+        <Route exact path="/">
+            <Redirect to="/by-day"></Redirect>
         </Route>
     </Switch>
 </Router>

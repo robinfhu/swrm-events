@@ -1,18 +1,16 @@
 
 import React from 'react'
-import {Link} from 'react-router-dom';
+import {Link,NavLink} from 'react-router-dom';
 
 export default class Header extends React.Component {
     constructor(props) {
         super(props) 
 
-        console.log(props)
-
         this.state = {
             navItems: [
-                {name: 'Home', path: "/"}
+                {name: 'Grouped by Day', path: "/by-day"}
             ,
-                {name: 'Hello', path: '/hello-world'}
+                {name: 'Grouped by Room', path: '/by-room'}
             ],
             active: 'Home'
         }
@@ -20,7 +18,7 @@ export default class Header extends React.Component {
     render() {
         const navItems = this.state.navItems.map((d)=> {
             return <li className='nav-item mr-3' key={d.name}>
-                <Link to={d.path}>{d.name}</Link>
+                <NavLink to={d.path} className="btn btn-secondary">{d.name}</NavLink>
             </li>
         })
         return <header>
