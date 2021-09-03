@@ -15,36 +15,39 @@ import {
     Redirect
   } from "react-router-dom";
   
-const users = generateData()
+import Sessions from './sessions'
+
+function start(sessionsData) {
+    const layout = <Router>
+        <Header brand='SWRM 2021 Events' />
+        <Switch>
+            <Route path="/by-day">
+                <GroupedByDay sessions={sessionsData}></GroupedByDay>
+            </Route>
+            
+            <Route path="/by-room">
+                <GroupedByRoom></GroupedByRoom>
+            </Route>
+
+            <Route exact path="/">
+                <Redirect to="/by-day"></Redirect>
+            </Route>
+        </Switch>
+    </Router>
+
+    ReactDOM.render(
+        layout,
+        document.getElementById('root')
+    )
+}
+
 
 fetch("test.json").then((response)=> {
     response.json().then((j)=> {
-        console.log("Got data back", j);
+        start(new Sessions(j));
     });
 }).catch((e) => {
     console.log(e);
 });
 
-const layout = <Router>
-    <Header brand='SWRM 2021 Events' />
-    <Switch>
-        <Route path="/by-day">
-            <GroupedByDay></GroupedByDay>
-        </Route>
-        
-        <Route path="/by-room">
-            <GroupedByRoom></GroupedByRoom>
-        </Route>
 
-        <Route exact path="/">
-            <Redirect to="/by-day"></Redirect>
-        </Route>
-    </Switch>
-</Router>
-
-
-
-ReactDOM.render(
-    layout,
-    document.getElementById('root')
-)

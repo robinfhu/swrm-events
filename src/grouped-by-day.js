@@ -1,14 +1,22 @@
 import React from 'react'
 import { NavLink, Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
+import EventItem from './event';
 
-function EventsList() {
+function EventsList(props) {
     let { day } = useParams();
-    return <div>Events for {day}</div>
+    
+    let eventsList = props.sessions.getData().slice(0, 10).map((item) => {
+        return <EventItem data={item}></EventItem>;
+    })
+    return <div>Events for {day}
+        <hr/>
+        {eventsList}
+    </div>
 }
 
-export default function GroupedByDay() {
+export default function GroupedByDay(props) {
     let {path, url} = useRouteMatch();
-    console.log(path,url);
+
     return (
         <React.Fragment>
             <NavLink to={`${url}/oct-30`} className="btn btn-primary">Oct 30</NavLink>
@@ -16,7 +24,7 @@ export default function GroupedByDay() {
             <hr/>
             <Switch>
                 <Route path={`${path}/:day`}>
-                    <EventsList/>
+                    <EventsList sessions={props.sessions}/>
                 </Route>
             </Switch>
         </React.Fragment>
