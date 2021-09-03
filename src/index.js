@@ -5,13 +5,28 @@ import {UserGrid, generateData} from "./user-mgmt-example.js"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import HelloWorld from "./hello-world.js"
-
+import {
+    HashRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+  
 const users = generateData()
 
-const layout = <React.Fragment>
+const layout = <Router>
     <Header brand='SWRM 2021' />
-    <HelloWorld users={users} name="Robin" />
-    </React.Fragment>
+    <Switch>
+        <Route exact path="/">
+            <h1>Home Page</h1>
+        </Route>
+        
+        <Route path="/hello-world">
+            <HelloWorld name="Robin"/>
+        </Route>
+    </Switch>
+</Router>
+
 
 
 ReactDOM.render(

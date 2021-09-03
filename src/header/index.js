@@ -1,5 +1,6 @@
 
 import React from 'react'
+import {Link} from 'react-router-dom';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -9,19 +10,17 @@ export default class Header extends React.Component {
 
         this.state = {
             navItems: [
-                {name: 'Home'}
+                {name: 'Home', path: "/"}
             ,
-                {name: 'About'}
+                {name: 'Hello', path: '/hello-world'}
             ],
             active: 'Home'
         }
     }
     render() {
         const navItems = this.state.navItems.map((d)=> {
-            const active = (this.state.active === d.name) ? 'active' : ''
-
             return <li className='nav-item mr-3' key={d.name}>
-                <a className={`nav-link ${active}`}>{d.name}</a>
+                <Link to={d.path}>{d.name}</Link>
             </li>
         })
         return <header>
