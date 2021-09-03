@@ -1,15 +1,19 @@
 import React from 'react'
 import { NavLink, Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
 import EventItem from './event';
+import {formatDate} from './utils';
+
+function DayButton(props) {
+    let {path, url} = useRouteMatch();
+    return <NavLink to={`${url}/${props.date}`} className="btn btn-primary mr-3">{formatDate(props.date)}</NavLink>
+}
 
 function EventsList(props) {
-    let { day } = useParams();
-    
-    let eventsList = props.sessions.getData().slice(0, 10).map((item) => {
+    let { date } = useParams();
+    let eventsList = props.sessions.getData().filter((item)=> item.DateKey === date).map((item) => {
         return <EventItem data={item} key={item.SessionID}></EventItem>;
     })
-    return <div>Events for {day}
-        <hr/>
+    return <div>
         {eventsList}
     </div>
 }
@@ -17,15 +21,14 @@ function EventsList(props) {
 export default function GroupedByDay(props) {
     let {path, url} = useRouteMatch();
     let dates = props.sessions.getDates().map((date) => {
-        return <NavLink to={`${url}/${date}`} className="btn btn-primary">{date}</NavLink>
+        return <DayButton date={date} key={date}></DayButton>
     });
     
     return (
         <React.Fragment>
-            {dates}
-            <hr/>
+            <div className="mb-1">{dates}</div>
             <Switch>
-                <Route path={`${path}/:day`}>
+                <Route path={`${path}/:date`}>
                     <EventsList sessions={props.sessions}/>
                 </Route>
             </Switch>

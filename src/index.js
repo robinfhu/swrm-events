@@ -1,10 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Header from "./header"
-import {UserGrid, generateData} from "./user-mgmt-example.js"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
-import HelloWorld from "./hello-world.js"
+import '../styles/main.css'
 import GroupedByDay from './grouped-by-day'
 import GroupedByRoom from './grouped-by-room'
 import {

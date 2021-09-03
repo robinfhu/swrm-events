@@ -1,7 +1,7 @@
 export default class Sessions {
     constructor(data) {
         this.data = this.cleanUp(data);
-        this.dates = this.countDates(data);
+        this.dates = this.countDates(this.data);
     }
 
     getData() {
@@ -30,8 +30,9 @@ export default class Sessions {
         data.forEach((item) => {
             if (item.Date) {
                 let [m,d,y] = item.Date.split("/");
-                let dateStr = `${y}-${m}-${d}`
-                result[dateStr] = 1;
+                let dateKey = `${y}-${m}-${d}`
+                item.DateKey = dateKey;
+                result[dateKey] = 1;
             }
         });
         return Object.keys(result).sort();
