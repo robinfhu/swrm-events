@@ -14,6 +14,14 @@ import {
   
 const users = generateData()
 
+fetch("test.json").then((response)=> {
+    response.json().then((j)=> {
+        console.log("Got data back", j);
+    });
+}).catch((e) => {
+    console.log(e);
+});
+
 const layout = <Router>
     <Header brand='SWRM 2021' />
     <Switch>
