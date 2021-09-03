@@ -7,7 +7,7 @@ export default class EventItem extends React.Component {
 
     render() {
         let {SessionTitle,Date} = this.props.data;
-        return <div class="event-item">
+        return <div className="event-item">
             <strong>{SessionTitle}</strong>
             <span>{Date}</span>
         </div>

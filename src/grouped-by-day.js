@@ -6,7 +6,7 @@ function EventsList(props) {
     let { day } = useParams();
     
     let eventsList = props.sessions.getData().slice(0, 10).map((item) => {
-        return <EventItem data={item}></EventItem>;
+        return <EventItem data={item} key={item.SessionID}></EventItem>;
     })
     return <div>Events for {day}
         <hr/>
@@ -16,11 +16,13 @@ function EventsList(props) {
 
 export default function GroupedByDay(props) {
     let {path, url} = useRouteMatch();
-
+    let dates = props.sessions.getDates().map((date) => {
+        return <NavLink to={`${url}/${date}`} className="btn btn-primary">{date}</NavLink>
+    });
+    
     return (
         <React.Fragment>
-            <NavLink to={`${url}/oct-30`} className="btn btn-primary">Oct 30</NavLink>
-            <NavLink to={`${url}/oct-31`} className="btn btn-primary">Oct 31</NavLink>
+            {dates}
             <hr/>
             <Switch>
                 <Route path={`${path}/:day`}>
