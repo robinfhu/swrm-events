@@ -16,6 +16,10 @@ export default class Sessions {
         return this.dates;
     }
 
+    getSession(id) {
+        return this.data.find((item)=> item.SessionID === id);
+    }
+
     cleanUp(data) {
         let result = [];
         result = data.map((item) => {

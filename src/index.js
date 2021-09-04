@@ -15,6 +15,7 @@ import {
   } from "react-router-dom";
   
 import Sessions from './sessions'
+import EventDetail from './event-detail'
 
 function start(sessionsData) {
     const layout = <Router>
@@ -26,6 +27,10 @@ function start(sessionsData) {
             
             <Route path="/by-room">
                 <GroupedByRoom></GroupedByRoom>
+            </Route>
+
+            <Route path="/event/:id">
+                <EventDetail sessions={sessionsData}></EventDetail>
             </Route>
 
             <Route exact path="/">
