@@ -67,29 +67,22 @@ export default class Sessions {
             item.StartTime24H = `${h}${m}`;
         });
 
-        data.sort((_a,_b) => {
-            let dateA = _a.DateKey;
-            let dateB = _b.DateKey;
-            if (dateA < dateB) {
+        let asc = (a,b, whenEqual)=> {
+            if (a < b) {
                 return -1;
             }
-            else if (dateA > dateB) {
+            else if (a > b) {
                 return 1;
             }
             else {
-                let a = _a.StartTime24H;
-                let b = _b.StartTime24H;
-                if (a < b) {
-                    return -1;
-                }
-                else if (a > b) {
-                    return 1;
-                }
-                else {
-                    return 0;
-                }
+                return whenEqual;
             }
-            
+        }
+
+        data.sort((a,b) => {
+            return asc(a.DateKey,b.DateKey,
+                asc(a.StartTime24H,b.StartTime24H,
+                asc(a.Location,b.Location,0))); 
         });
     }
 
