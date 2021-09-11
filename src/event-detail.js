@@ -13,7 +13,7 @@ export default function EventDetail(props) {
         if (item.Media) {
             mediaLink = <NavLink to={`/media/${item.Media}`}>See Media</NavLink>
         }
-        return <div className="card mb-3">
+        return <div className="card mb-3" key={item.SessionID}>
             <div className="card-header">
                 <h6>{SessionTitle}</h6>
             </div>

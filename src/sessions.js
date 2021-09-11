@@ -7,8 +7,9 @@
 export default class Sessions {
     constructor(sessions, speakers, media) {
         this.data = this.cleanUp(sessions);
-        this.sortByTime(this.data);
         this.dates = this.countDates(this.data);
+        this.sortByTime(this.data);
+        this.rooms = this.countRooms(this.data);
         this.speakers = speakers;
         this.media = media;
         this.loadSpeakersMedia(this.data);
@@ -32,6 +33,10 @@ export default class Sessions {
 
     getDates() {
         return this.dates;
+    }
+
+    getRooms() {
+        return this.rooms;
     }
 
     getSession(id) {
@@ -63,17 +68,28 @@ export default class Sessions {
         });
 
         data.sort((_a,_b) => {
-            let a = _a.StartTime24H;
-            let b = _b.StartTime24H;
-            if (a < b) {
+            let dateA = _a.DateKey;
+            let dateB = _b.DateKey;
+            if (dateA < dateB) {
                 return -1;
             }
-            else if (a > b) {
+            else if (dateA > dateB) {
                 return 1;
             }
             else {
-                return 0;
+                let a = _a.StartTime24H;
+                let b = _b.StartTime24H;
+                if (a < b) {
+                    return -1;
+                }
+                else if (a > b) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
             }
+            
         });
     }
 
@@ -108,6 +124,16 @@ export default class Sessions {
                 let dateKey = `${y}-${m}-${d}`
                 item.DateKey = dateKey;
                 result[dateKey] = 1;
+            }
+        });
+        return Object.keys(result).sort();
+    }
+
+    countRooms(data) {
+        let result = {};
+        data.forEach((item) => {
+            if (item.Location) {
+                result[item.Location] = 1;
             }
         });
         return Object.keys(result).sort();

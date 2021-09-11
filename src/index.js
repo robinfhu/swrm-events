@@ -27,7 +27,7 @@ function start(sessionsData) {
             </Route>
             
             <Route path="/by-room">
-                <GroupedByRoom></GroupedByRoom>
+                <GroupedByRoom sessions={sessionsData}></GroupedByRoom>
             </Route>
 
             <Route path="/event/:id">
