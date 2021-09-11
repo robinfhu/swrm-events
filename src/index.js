@@ -20,7 +20,7 @@ import MediaContent from './media-content'
 
 function start(sessionsData) {
     const layout = <Router>
-        <Header brand='SWRM 2021 Events' />
+        <Header brand='SWRM 2021 Sessions' />
         <Switch>
             <Route path="/by-day">
                 <GroupedByDay sessions={sessionsData}></GroupedByDay>

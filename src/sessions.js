@@ -103,10 +103,11 @@ export default class Sessions {
                 let keyClean = key.replace(/\s/g, '');
                 entry[keyClean] = item[key];
             }
+            //If location appears in session description, have it removed.
+            entry["SessionDescription"] = entry["SessionDescription"].replace(entry["Location"],'').trim();
             entry["Location"] = this.removeTrailing(entry["Location"]);
             entry["SessionTitle"] = this.removeTrailing(entry["SessionTitle"]);
             entry["SessionDescription"] = this.removeTrailing(entry["SessionDescription"]);
-
 
             return entry;
         });

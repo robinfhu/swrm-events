@@ -15,10 +15,15 @@ export default class EventItem extends React.Component {
             <strong>
                 <NavLink to={`/event/${SessionID}`}>{SessionTitle}</NavLink>
             </strong><br/>
-            <span className="small-text">{SessionDescription}</span><br/>
-            <span className="small-text">{StartTime} - {EndTime} | <span className="text-muted">{formatDate(DateKey)}</span></span>
-             <br/>
-            <span>{Location}</span>
+            
+            <strong className="small-text">{formatDate(DateKey)}</strong>
+            
+            <strong className="text-muted small-text ml-3">{StartTime} - {EndTime}</strong>
+            <br/>
+            <div className="small-text border-bottom text-muted">{Location}</div>
+             
+            <span className="small-text">{SessionDescription}</span>
+            
         </div>
     }
 }
