@@ -8,11 +8,14 @@ export default class EventItem extends React.Component {
     }
 
     render() {
-        let {SessionID,DateKey,StartTime,EndTime,Location,SessionDescription} = this.props.data;
+        let {SessionID,DateKey,
+            StartTime,EndTime,
+            Location,SessionDescription,SessionTitle} = this.props.data;
         return <div className="event-item shadow-sm mb-3 border p-1">
             <strong>
-                <NavLink to={`/event/${SessionID}`}>{SessionDescription}</NavLink>
+                <NavLink to={`/event/${SessionID}`}>{SessionTitle}</NavLink>
             </strong><br/>
+            <span className="small-text">{SessionDescription}</span><br/>
             <span className="small-text">{StartTime} - {EndTime} | <span className="text-muted">{formatDate(DateKey)}</span></span>
              <br/>
             <span>{Location}</span>

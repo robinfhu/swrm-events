@@ -45,14 +45,15 @@ function start(sessionsData) {
     )
 }
 
+const sessionsPromise = fetch("sessions.json").then((response)=> response.json());
+const speakersPromise = fetch("speakers.json").then((response)=> response.json());
+const mediaPromise = fetch("media.json").then((response)=> response.json());
 
-//Bootstrap the application by loading sessions data.
-fetch("sessions.json")
-.then((response)=> response.json())
-.then((j) => {
-    start(new Sessions(j));
+Promise.all([sessionsPromise,speakersPromise,mediaPromise]).then( ([sessions,speakers,media]) => {
+    start(new Sessions(sessions,speakers,media));
 }).catch((e) => {
     console.log(e);
 });
+
 
 
