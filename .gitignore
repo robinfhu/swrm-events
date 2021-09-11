@@ -1,5 +1,6 @@
 public/*.js
 public/*.txt
+public/*.json
 scripts/*.csv
 scripts/*.json
 

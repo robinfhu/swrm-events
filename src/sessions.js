@@ -1,3 +1,7 @@
+/**
+ * You want to construct this with the list of all sessions.
+ * It has convenience methods for parsing the session data.
+ */
 export default class Sessions {
     constructor(data) {
         this.data = this.cleanUp(data);
@@ -20,6 +24,7 @@ export default class Sessions {
         return this.data.find((item)=> item.SessionID === id);
     }
 
+    // Removes spaces from the keys of each JSON item.
     cleanUp(data) {
         let result = [];
         result = data.map((item) => {
@@ -33,11 +38,14 @@ export default class Sessions {
         return result;
     }
 
+    // Finds all unique dates in the sessions data set.
     countDates(data) {
         let result = {};
         data.forEach((item) => {
             if (item.Date) {
                 let [m,d,y] = item.Date.split("/");
+                // Removes invalid dates.
+                if (!m) { return; }
                 let dateKey = `${y}-${m}-${d}`
                 item.DateKey = dateKey;
                 result[dateKey] = 1;

@@ -1,13 +1,25 @@
-Just a simple web app I created to learn React. 
-The app has what I think are the bare essentials to getting a React app
-up and running.  Contains a basic user management table example.
+SWRM 2021 Events app.
 
-See this app running:
-[http://projects.robinforest.net/react-example/](http://projects.robinforest.net/react-example/)
+## Parse CSV files 
+
+    cd ./scripts
+    node parse.js <input file>
 
 ## How to build app
+
+Install dependencies:
+
     npm install
+
+Build bundle:
 
     npx webpack
 
+Run local server with hot reloading:
+
     npx webpack serve
+
+
+## Deployment
+
+Run `npx webpack` and then upload all files in `./public/` to an AWS static site bucket.

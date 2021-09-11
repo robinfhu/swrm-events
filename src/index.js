@@ -46,10 +46,11 @@ function start(sessionsData) {
 }
 
 
-fetch("test.json").then((response)=> {
-    response.json().then((j)=> {
-        start(new Sessions(j));
-    });
+//Bootstrap the application by loading sessions data.
+fetch("sessions.json")
+.then((response)=> response.json())
+.then((j) => {
+    start(new Sessions(j));
 }).catch((e) => {
     console.log(e);
 });
