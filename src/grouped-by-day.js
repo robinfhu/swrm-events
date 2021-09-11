@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
+import { NavLink, Route, Redirect, Switch, useParams, useRouteMatch } from 'react-router-dom';
 import EventItem from './event';
 import {formatDate} from './utils';
 
@@ -21,9 +21,14 @@ function EventsList(props) {
 
 export default function GroupedByDay(props) {
     let {path, url} = useRouteMatch();
+    let defaultDate = null;
     let dates = props.sessions.getDates().map((date) => {
+        if (!defaultDate) {
+            defaultDate = date;
+        }
         return <DayButton date={date} key={date}></DayButton>
     });
+
     
     return (
         <React.Fragment>
@@ -31,6 +36,10 @@ export default function GroupedByDay(props) {
             <Switch>
                 <Route path={`${path}/:date`}>
                     <EventsList sessions={props.sessions}/>
+                </Route>
+
+                <Route exact path={path}>
+                    <Redirect to={`${path}/${defaultDate}`}></Redirect>
                 </Route>
             </Switch>
         </React.Fragment>

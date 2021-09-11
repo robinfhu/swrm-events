@@ -37,6 +37,10 @@ export default class Sessions {
         return this.data.find((item)=> item.SessionID === id);
     }
 
+    getChildSessions(parentId) {
+        return this.data.filter((item)=> item["Parent"] === parentId);
+    }
+
     removeTrailing(str) {
         return str.replace(/\-$/,'').trim();
     }
