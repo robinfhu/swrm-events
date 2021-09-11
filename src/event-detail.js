@@ -1,6 +1,7 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import { formatDate } from './utils';
+
 export default function EventDetail(props) {
     let {id} = useParams();
     const session = props.sessions.getSession(id);
@@ -8,6 +9,10 @@ export default function EventDetail(props) {
 
     const childSessionsElem = childSessions.map((item) => {
         let {SessionTitle,SessionDescription,StartTime,EndTime} = item;
+        let mediaLink = null;
+        if (item.Media) {
+            mediaLink = <NavLink to={`/media/${item.Media}`}>See Media</NavLink>
+        }
         return <div className="card mb-3">
             <div className="card-header">
                 <h6>{SessionTitle}</h6>
@@ -15,6 +20,8 @@ export default function EventDetail(props) {
             <div className="card-body">
                 <strong>Time:</strong> {StartTime} - {EndTime}<br/>
                 <span>{SessionDescription}</span>
+                <br/>
+                {mediaLink}
             </div>
         </div>
     })

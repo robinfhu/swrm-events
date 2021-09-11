@@ -7,6 +7,7 @@
 export default class Sessions {
     constructor(sessions, speakers, media) {
         this.data = this.cleanUp(sessions);
+        this.sortByTime(this.data);
         this.dates = this.countDates(this.data);
         this.speakers = speakers;
         this.media = media;
@@ -43,6 +44,37 @@ export default class Sessions {
 
     removeTrailing(str) {
         return str.replace(/\-$/,'').trim();
+    }
+
+    // Converts Start time to 24 h time string, and then sorts on that in ascending order.
+    sortByTime(data) {
+        data.forEach((item)=> {
+            let startTime = item["StartTime"];
+            item.StartTime24H = "";
+            if (!startTime) {
+                return;
+            }
+            let isPM = startTime.includes("PM");
+            let [_, h, m] = startTime.match(/(\d\d):(\d\d)/);
+            if (isPM && h != "12") {
+                h = parseInt(h) + 12;
+            }
+            item.StartTime24H = `${h}${m}`;
+        });
+
+        data.sort((_a,_b) => {
+            let a = _a.StartTime24H;
+            let b = _b.StartTime24H;
+            if (a < b) {
+                return -1;
+            }
+            else if (a > b) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        });
     }
 
     // Removes spaces from the keys of each JSON item.
@@ -90,7 +122,7 @@ export default class Sessions {
             }
 
             if (item["Media"]) {
-                item["AbstractContent"] = this.getMedia(item["Media"]);
+                item["MediaContent"] = this.getMedia(item["Media"]);
             }
         });
     }

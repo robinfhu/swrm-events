@@ -16,6 +16,7 @@ import {
   
 import Sessions from './sessions'
 import EventDetail from './event-detail'
+import MediaContent from './media-content'
 
 function start(sessionsData) {
     const layout = <Router>
@@ -31,6 +32,10 @@ function start(sessionsData) {
 
             <Route path="/event/:id">
                 <EventDetail sessions={sessionsData}></EventDetail>
+            </Route>
+
+            <Route path="/media/:id">
+                <MediaContent sessions={sessionsData}></MediaContent>
             </Route>
 
             <Route exact path="/">
