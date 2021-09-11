@@ -12,6 +12,14 @@ const {JSDOM} = jsdom;
             throw new Error("Missing ID key");
         }
         const dom = new JSDOM(item["Description"]);
+        const agendaLink = dom.window.document.getElementsByTagName("a")[0];
+        if (!agendaLink) {
+            console.log("Missing link for ", item.ID);
+            continue;
+        }
+        const eventId = agendaLink.href.split(":")[5];
+        agendaLink.setAttribute("href", `#/event/${eventId}`);
+
         item["Description"] = dom.window.document.body.innerHTML;
         delete item["Type"];
         mapResult[item[idKey]] = item;
