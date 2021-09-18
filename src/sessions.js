@@ -165,7 +165,7 @@ export default class Sessions {
             if (item["SpeakerID"]) {
                 item["Speakers"] = item["SpeakerID"].split(",")
                 .map((d) => d.trim())
-                .map((id) => this.getSpeaker(id));
+                .map((id) => this.getSpeaker(id)).filter(d => d);
             }
 
             if (item["Media"]) {
