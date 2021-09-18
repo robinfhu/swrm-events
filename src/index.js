@@ -42,6 +42,10 @@ function start(sessionsData) {
                 <Redirect to="/by-day"></Redirect>
             </Route>
         </Switch>
+        <footer className='text-center py-4'>
+            <hr/>
+            <span>&copy; 2021 {sessionsData.config.copyright}</span>
+        </footer>
     </Router>
 
     ReactDOM.render(

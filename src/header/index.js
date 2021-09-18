@@ -8,9 +8,9 @@ export default class Header extends React.Component {
 
         this.state = {
             navItems: [
-                {name: 'Grouped by Day', path: "/by-day"}
+                {name: 'Sessions by Day', path: "/by-day"}
             ,
-                {name: 'Grouped by Room', path: '/by-room'}
+                {name: 'Sessions by Room', path: '/by-room'}
             ],
             active: 'Home'
         }
@@ -18,7 +18,7 @@ export default class Header extends React.Component {
     render() {
         const navItems = this.state.navItems.map((d)=> {
             return <li className='nav-item mr-3' key={d.name}>
-                <NavLink to={d.path} className="btn btn-secondary">{d.name}</NavLink>
+                <NavLink to={d.path} className="btn btn-secondary session-group-button">{d.name}</NavLink>
             </li>
         })
         return <header>

@@ -4,14 +4,17 @@ import EventItem from './event';
 
 function RoomButton(props) {
     let {path, url} = useRouteMatch();
-    return <NavLink to={`${url}/${props.room}`} className="btn btn-primary mr-3">{props.room}</NavLink>
+    return <NavLink to={`${url}/${props.room}`} 
+    className="btn btn-primary mr-1 room-button">{props.room}</NavLink>
 }
 
 function EventsList(props) {
     let { room } = useParams();
+    
+    let timezone = props.sessions.config.timezone.short;
     let eventsList = props.sessions.getParentSessions()
     .filter((item)=> item.Location === room).map((item) => {
-        return <EventItem data={item} key={item.SessionID}></EventItem>;
+        return <EventItem data={item} key={item.SessionID} timezone={timezone}></EventItem>;
     })
     return <div>
         {eventsList}

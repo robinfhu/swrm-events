@@ -5,14 +5,16 @@ import {formatDate} from './utils';
 
 function DayButton(props) {
     let {path, url} = useRouteMatch();
-    return <NavLink to={`${url}/${props.date}`} className="btn btn-primary mr-3">{formatDate(props.date)}</NavLink>
+    return <NavLink to={`${url}/${props.date}`} 
+    className="btn btn-primary mr-1 date-button">{formatDate(props.date)}</NavLink>
 }
 
 function EventsList(props) {
     let { date } = useParams();
+    let timezone = props.sessions.config.timezone.short;
     let eventsList = props.sessions.getParentSessions()
     .filter((item)=> item.DateKey === date).map((item) => {
-        return <EventItem data={item} key={item.SessionID}></EventItem>;
+        return <EventItem data={item} key={item.SessionID} timezone={timezone}></EventItem>;
     })
     return <div>
         {eventsList}

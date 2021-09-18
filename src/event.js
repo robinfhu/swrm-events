@@ -18,7 +18,7 @@ export default class EventItem extends React.Component {
             
             <strong className="small-text">{formatDate(DateKey)}</strong>
             
-            <strong className="text-muted small-text ml-3">{StartTime} - {EndTime}</strong>
+            <strong className="text-muted small-text ml-3">{StartTime} - {EndTime} ({this.props.timezone})</strong>
             <br/>
             <div className="small-text border-bottom text-muted">{Location}</div>
              

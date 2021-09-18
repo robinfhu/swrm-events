@@ -5,3 +5,18 @@
 .small-text {
     font-size: 0.8em;
 }
+
+.date-button {
+    width: 130px;
+    white-space: nowrap;
+}
+
+.room-button {
+    width: 150px;
+    white-space: nowrap;
+}
+
+.session-group-button {
+    width: 180px;
+    white-space: nowrap;;
+}
