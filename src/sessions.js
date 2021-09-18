@@ -104,7 +104,7 @@ export default class Sessions {
             //If location appears in session description, have it removed.
             entry["SessionDescription"] = entry["SessionDescription"].replace(entry["Location"],'').trim();
             entry["Location"] = this.fixLocation(entry["Location"]);
-            entry["SessionTitle"] = this.removeTrailing(entry["SessionTitle"]);
+            entry["SessionTitle"] = this.fixSessionTitle(entry["SessionTitle"]);
             entry["SessionDescription"] = this.removeTrailing(entry["SessionDescription"]);
 
             return entry;
@@ -123,6 +123,15 @@ export default class Sessions {
             location = mapping[location];
         }
         return location;
+    }
+
+    fixSessionTitle(title) {
+        if (!this.config["sessionPrefixToRemove"]) {
+            return title;
+        }
+        let prefix = this.config["sessionPrefixToRemove"];
+        let reg = new RegExp(`^${prefix}\\s?[\\d]*:`);
+        return this.removeTrailing(title).replace(reg,'').trim();
     }
 
     // Finds all unique dates in the sessions data set.
