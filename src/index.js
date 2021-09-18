@@ -50,12 +50,13 @@ function start(sessionsData) {
     )
 }
 
+const configPromise = fetch("config.json").then((response)=> response.json());
 const sessionsPromise = fetch("sessions.json").then((response)=> response.json());
 const speakersPromise = fetch("speakers.json").then((response)=> response.json());
 const mediaPromise = fetch("media.json").then((response)=> response.json());
 
-Promise.all([sessionsPromise,speakersPromise,mediaPromise]).then( ([sessions,speakers,media]) => {
-    start(new Sessions(sessions,speakers,media));
+Promise.all([configPromise,sessionsPromise,speakersPromise,mediaPromise]).then( ([config,sessions,speakers,media]) => {
+    start(new Sessions(config,sessions,speakers,media));
 }).catch((e) => {
     console.log(e);
 });

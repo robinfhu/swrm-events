@@ -30,6 +30,7 @@ export default function GroupedByRoom(props) {
     });
     return (
         <React.Fragment>
+            <div className="text-center">{props.sessions.getBaseLocation()}</div>
             {roomButtons}
             <hr/>
             <Switch>

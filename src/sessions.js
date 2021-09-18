@@ -5,7 +5,8 @@
  * Load in the speakers and media maps as well here.
  */
 export default class Sessions {
-    constructor(sessions, speakers, media) {
+    constructor(config, sessions, speakers, media) {
+        this.config = config;
         this.data = this.cleanUp(sessions);
         this.dates = this.countDates(this.data);
         this.sortByTime(this.data);
@@ -17,6 +18,10 @@ export default class Sessions {
 
     getData() {
         return this.data; 
+    }
+
+    getBaseLocation() {
+        return this.config["baseLocation"] || "";
     }
 
     getParentSessions() {
@@ -48,7 +53,7 @@ export default class Sessions {
     }
 
     removeTrailing(str) {
-        return str.replace(/\-$/,'').trim();
+        return str.trim().replace(/\-$/,'').trim();
     }
 
     // Converts Start time to 24 h time string, and then sorts on that in ascending order.
@@ -98,13 +103,26 @@ export default class Sessions {
             }
             //If location appears in session description, have it removed.
             entry["SessionDescription"] = entry["SessionDescription"].replace(entry["Location"],'').trim();
-            entry["Location"] = this.removeTrailing(entry["Location"]);
+            entry["Location"] = this.fixLocation(entry["Location"]);
             entry["SessionTitle"] = this.removeTrailing(entry["SessionTitle"]);
             entry["SessionDescription"] = this.removeTrailing(entry["SessionDescription"]);
 
             return entry;
         });
         return result;
+    }
+
+    fixLocation(location) {
+        if (this.config["baseLocation"]) {
+            location = location.replace(this.config["baseLocation"], '');
+            location = this.removeTrailing(location);
+        }
+
+        let mapping = this.config["locationMappings"] || {};
+        if (mapping[location] != null) {
+            location = mapping[location];
+        }
+        return location;
     }
 
     // Finds all unique dates in the sessions data set.
