@@ -130,7 +130,7 @@ export default class Sessions {
             return title;
         }
         let prefix = this.config["sessionPrefixToRemove"];
-        let reg = new RegExp(`^${prefix}\\s?[\\d]*:`);
+        let reg = new RegExp(`^${prefix}\\s?:?`);
         return this.removeTrailing(title).replace(reg,'').trim();
     }
 

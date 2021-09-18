@@ -20,6 +20,10 @@ const {JSDOM} = jsdom;
         const eventId = agendaLink.href.split(":")[5];
         agendaLink.setAttribute("href", `#/event/${eventId}`);
 
+        let header = dom.window.document.getElementsByTagName("h1")[0];
+        if (header) {
+            dom.window.document.body.removeChild(header);
+        }
         item["Description"] = dom.window.document.body.innerHTML;
         delete item["Type"];
         mapResult[item[idKey]] = item;
