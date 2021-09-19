@@ -23,9 +23,9 @@ export default class Header extends React.Component {
         })
         return <header>
             <div>
-                <a href="/#">
+                <NavLink to="/">
                     <img src="swrm-logo.png" className='w-100'></img>
-                </a>
+                </NavLink>
             </div>
             <div className='navbar navbar-expand-sm navbar-dark bg-dark shadow-sm'>
                 <div className='container-fluid justify-content-start'>
