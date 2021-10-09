@@ -6,6 +6,7 @@ import 'bootstrap'
 import '../styles/main.css'
 import GroupedByDay from './grouped-by-day'
 import GroupedByRoom from './grouped-by-room'
+import SearchResults from './search-results'
 import {
     HashRouter as Router,
     Switch,
@@ -28,6 +29,10 @@ function start(sessionsData) {
             
             <Route path="/by-room">
                 <GroupedByRoom sessions={sessionsData}></GroupedByRoom>
+            </Route>
+
+            <Route path="/search">
+                <SearchResults sessions={sessionsData}></SearchResults>
             </Route>
 
             <Route path="/event/:id">

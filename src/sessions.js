@@ -93,6 +93,7 @@ export default class Sessions {
 
     // Removes spaces from the keys of each JSON item.
     // Removes trailing dash from locations and titles
+    // Creates a search blob
     cleanUp(data) {
         let result = [];
         result = data.map((item) => {
@@ -106,6 +107,10 @@ export default class Sessions {
             entry["Location"] = this.fixLocation(entry["Location"]);
             entry["SessionTitle"] = this.fixSessionTitle(entry["SessionTitle"]);
             entry["SessionDescription"] = this.removeTrailing(entry["SessionDescription"]);
+            entry["SearchBlob"] = [
+                entry["SessionTitle"].toLowerCase() ,
+                entry["SessionDescription"].toLowerCase()
+            ].join(' ');
 
             return entry;
         });
@@ -171,6 +176,13 @@ export default class Sessions {
             if (item["Media"]) {
                 item["MediaContent"] = this.getMedia(item["Media"]);
             }
+        });
+    }
+
+    searchFilter(query) {
+        let parts = query.split(' ').map((d)=> d.toLowerCase());
+        return this.getParentSessions().filter((item) => !!item["Date"]).filter((item) => {
+            return parts.every((part)=> item['SearchBlob'].includes(part));
         });
     }
 }
