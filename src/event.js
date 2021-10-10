@@ -11,16 +11,20 @@ export default class EventItem extends React.Component {
         let {SessionID,DateKey,
             StartTime,EndTime,
             Location,SessionDescription,SessionTitle} = this.props.data;
+
+        let room = (this.props.data["Room"]) ? `, ${this.props.data["Room"]}` : '';
+        let socialBadge = (SessionID.match(/social/i)) ? <span className='badge badge-primary ml-3'>Social Event</span> : '';
         return <div className="event-item shadow-sm mb-3 border p-1">
             <strong>
                 <NavLink to={`/event/${SessionID}`}>{SessionTitle}</NavLink>
+                {socialBadge}
             </strong><br/>
             
             <strong className="small-text">{formatDate(DateKey)}</strong>
             
             <strong className="text-muted small-text ml-3">{StartTime} - {EndTime} ({this.props.timezone})</strong>
             <br/>
-            <div className="small-text border-bottom text-muted">{Location}</div>
+            <div className="small-text border-bottom text-muted">{Location} {room}</div>
              
             <span className="small-text">{SessionDescription}</span>
             

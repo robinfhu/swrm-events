@@ -39,9 +39,13 @@ export default function EventDetail(props) {
 
     let description = session["SessionDescription"];
     description = {
-        __html: description.replace("Presiders:","<strong>Presiders:</strong>")
+        __html: description
+        .replace("Presiders:","<strong>Presiders:</strong>")
+        .replace("Room:","<br/><strong>Room:</strong>")
     };
 
+    let presentationsTitle = (childSessionsElem.length > 0) ? <h3 className="ml-3 mt-3">Presentations</h3> : '';
+    let specialRoom = (session["Room"]) ? <div><strong>Room: </strong> {session["Room"]}</div> : '';
     return <div>
         <div className="card">
             <div className="card-header">
@@ -55,10 +59,11 @@ export default function EventDetail(props) {
                 
                 <br/>
                 <strong>Location:</strong> {session["Location"]}
+                {specialRoom}
                 <div dangerouslySetInnerHTML={description}></div>
             </div>
         </div>
-        <h3 className="ml-3 mt-3">Presentations</h3>
+        {presentationsTitle}
         {childSessionsElem}
     </div>
     

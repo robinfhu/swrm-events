@@ -65,7 +65,7 @@ export default class Sessions {
                 return;
             }
             let isPM = startTime.includes("PM");
-            let [_, h, m] = startTime.match(/(\d\d):(\d\d)/);
+            let [_, h, m] = startTime.match(/(\d+):(\d+)/);
             if (isPM && h != "12") {
                 h = parseInt(h) + 12;
             }
@@ -109,7 +109,8 @@ export default class Sessions {
             entry["SessionDescription"] = this.removeTrailing(entry["SessionDescription"]);
             entry["SearchBlob"] = [
                 entry["SessionTitle"].toLowerCase() ,
-                entry["SessionDescription"].toLowerCase()
+                entry["SessionDescription"].toLowerCase(),
+                entry["SessionID"].toLowerCase()
             ].join(' ');
 
             return entry;

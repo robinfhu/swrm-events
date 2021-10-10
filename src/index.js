@@ -61,10 +61,13 @@ function start(sessionsData) {
 
 const configPromise = fetch("config.json").then((response)=> response.json());
 const sessionsPromise = fetch("sessions.json").then((response)=> response.json());
+const socialPromise = fetch("social.json").then((response)=> response.json());
 const speakersPromise = fetch("speakers.json").then((response)=> response.json());
 const mediaPromise = fetch("media.json").then((response)=> response.json());
 
-Promise.all([configPromise,sessionsPromise,speakersPromise,mediaPromise]).then( ([config,sessions,speakers,media]) => {
+Promise.all([configPromise,sessionsPromise,socialPromise,speakersPromise,mediaPromise])
+.then( ([config,sessions,social,speakers,media]) => {
+    sessions = sessions.concat(social);
     start(new Sessions(config,sessions,speakers,media));
 }).catch((e) => {
     console.log(e);
