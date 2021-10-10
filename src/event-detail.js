@@ -2,6 +2,11 @@ import React from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { formatDate } from './utils';
 
+function urlify(text) {
+    let urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, '<a href="$1">$1</a>');
+}
+
 export default function EventDetail(props) {
     let {id} = useParams();
     const timezone = props.sessions.config.timezone.long;
@@ -46,6 +51,8 @@ export default function EventDetail(props) {
 
     let presentationsTitle = (childSessionsElem.length > 0) ? <h3 className="ml-3 mt-3">Presentations</h3> : '';
     let specialRoom = (session["Room"]) ? <div><strong>Room: </strong> {session["Room"]}</div> : '';
+
+    let longDescription = (session["LongDescription"]) ? {__html: urlify(session["LongDescription"])} : null;
     return <div>
         <div className="card">
             <div className="card-header">
@@ -61,6 +68,7 @@ export default function EventDetail(props) {
                 <strong>Location:</strong> {session["Location"]}
                 {specialRoom}
                 <div dangerouslySetInnerHTML={description}></div>
+                <div className="mt-3" dangerouslySetInnerHTML={longDescription}></div>
             </div>
         </div>
         {presentationsTitle}

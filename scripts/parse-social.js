@@ -25,7 +25,11 @@ const fs = require('fs');
             item["End Time"] = '0' + item["End Time"];
         }
 
-        item["Session Description"] += item["Description"];
+        item["Long Description"] = item["Description"];
+        if (item["Location"] === "Courtyard") {
+            item["Session Description"] += item["Description"];
+            delete item["Long Description"];
+        }
         delete item["Description"];
         delete item["Person"];
         item["Session ID"] = `SOCIAL-${i}`;

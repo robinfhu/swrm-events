@@ -10,10 +10,11 @@ export default class EventItem extends React.Component {
     render() {
         let {SessionID,DateKey,
             StartTime,EndTime,
+            EventType,
             Location,SessionDescription,SessionTitle} = this.props.data;
 
         let room = (this.props.data["Room"]) ? `, ${this.props.data["Room"]}` : '';
-        let socialBadge = (SessionID.match(/social/i)) ? <span className='badge badge-primary ml-3'>Social Event</span> : '';
+        let socialBadge = (EventType) ? <span className='badge badge-primary ml-3'>{EventType}</span> : '';
         return <div className="event-item shadow-sm mb-3 border p-1">
             <strong>
                 <NavLink to={`/event/${SessionID}`}>{SessionTitle}</NavLink>
