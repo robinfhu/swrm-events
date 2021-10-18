@@ -23,9 +23,16 @@ function EventsList(props) {
 
 export default function GroupedByDay(props) {
     let {path, url} = useRouteMatch();
+    let today = new Date();
+    // Automatically set it to today's date if relevant.
+    today = today.toISOString().replace(/T.*/,'');
+
     let defaultDate = null;
     let dates = props.sessions.getDates().map((date) => {
         if (!defaultDate) {
+            defaultDate = date;
+        }
+        if (today === date) {
             defaultDate = date;
         }
         return <DayButton date={date} key={date}></DayButton>
