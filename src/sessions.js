@@ -96,6 +96,15 @@ export default class Sessions {
     // Creates a search blob
     cleanUp(data) {
         let result = [];
+        // If the time is something like 7:00, make it 07:00.
+        const zeroPad = (time) => {
+            if (time.length === 7) {
+                return "0" + time;
+            }
+            else {
+                return time;
+            }
+        }
         result = data.map((item) => {
             let entry = {};
             for (const key in item) {
@@ -112,6 +121,9 @@ export default class Sessions {
                 entry["SessionDescription"].toLowerCase(),
                 entry["SessionID"].toLowerCase()
             ].join(' ');
+
+            entry["StartTime"] = zeroPad(entry["StartTime"]);
+            entry["EndTime"] = zeroPad(entry["EndTime"]);
 
             return entry;
         });
@@ -143,11 +155,26 @@ export default class Sessions {
     // Finds all unique dates in the sessions data set.
     countDates(data) {
         let result = {};
+        const zeropad = (n) => {
+            if (n.length <= 1) {
+                return "0" + n;
+            }
+            else {
+                return n;
+            }
+        }
         data.forEach((item) => {
             if (item.Date) {
                 let [m,d,y] = item.Date.split("/");
                 // Removes invalid dates.
                 if (!m) { return; }
+
+                //If the year is two digits, add "20" in front of it.
+                if (y.length == 2) {
+                    y = "20" + y;
+                }
+                m = zeropad(m);
+                d = zeropad(d);
                 let dateKey = `${y}-${m}-${d}`
                 item.DateKey = dateKey;
                 result[dateKey] = 1;
