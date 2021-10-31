@@ -12,6 +12,7 @@ export default class EventItem extends React.Component {
             StartTime,EndTime,
             EventType,
             Location,SessionDescription,SessionTitle} = this.props.data;
+        SessionTitle = SessionTitle || "Untitled";
 
         let room = (this.props.data["Room"]) ? `, ${this.props.data["Room"]}` : '';
         let socialBadge = (EventType) ? <span className='badge badge-primary ml-3'>{EventType}</span> : '';

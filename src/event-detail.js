@@ -17,6 +17,7 @@ export default function EventDetail(props) {
 
     const childSessionsElem = childSessions.map((item) => {
         let {SessionTitle,SessionDescription,StartTime,EndTime} = item;
+        SessionTitle = SessionTitle || "Untitled";
         let mediaLink = null;
         let speakers = null;
         if (item.Media) {
