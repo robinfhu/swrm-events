@@ -21,7 +21,7 @@ function EventsList(props) {
     </div>
 }
 
-
+// Shows all events grouped by the location they are in.
 export default function GroupedByRoom(props) {
     let {path, url} = useRouteMatch();
     let defaultRoom = null;

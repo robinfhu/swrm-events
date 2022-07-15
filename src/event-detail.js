@@ -2,11 +2,13 @@ import React from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { formatDate } from './utils';
 
+// Converts URL's in a text string into anchor elements.
 function urlify(text) {
     let urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.replace(urlRegex, '<a href="$1">$1</a>');
 }
 
+// Renders a page that shows all the event details.
 export default function EventDetail(props) {
     let {id} = useParams();
     const timezone = props.sessions.config.timezone.long;

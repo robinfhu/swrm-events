@@ -2,6 +2,7 @@ import React from 'react'
 import {formatDate} from './utils';
 import { NavLink } from 'react-router-dom';
 
+// Renders an event card that appears in the event lists.
 export default class EventItem extends React.Component {
     constructor(props) {
         super(props);

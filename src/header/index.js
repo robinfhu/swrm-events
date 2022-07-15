@@ -2,6 +2,7 @@
 import React from 'react'
 import {Link,NavLink, useHistory} from 'react-router-dom';
 
+// Renders a search bar.
 function SearchForm() {
     let history = useHistory();
     let handleSearch = (e) => {
@@ -20,6 +21,8 @@ function SearchForm() {
     </form>
 }
 
+// Renders the application header.
+// Contains logo, navigation buttons and search form.
 export default class Header extends React.Component {
     constructor(props) {
         super(props) 

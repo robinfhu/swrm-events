@@ -19,6 +19,7 @@ function EventsList(props) {
     </div>
 }
 
+// Renders list of events based on search query.
 export default function SearchResults(props) {
     let {path, url} = useRouteMatch();
     

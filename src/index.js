@@ -19,6 +19,7 @@ import Sessions from './sessions'
 import EventDetail from './event-detail'
 import MediaContent from './media-content'
 
+// Main entry point into the application. Pass in a Sessions object to bootstrap the app.
 function start(sessionsData) {
     const layout = <Router>
         <Header brand='SWRM 2021 Sessions' />
@@ -59,6 +60,7 @@ function start(sessionsData) {
     )
 }
 
+// Fetches all the application data. Groups them into a single promise, which needs to resolve to start the app.
 const configPromise = fetch("config.json").then((response)=> response.json());
 const sessionsPromise = fetch("sessions.json").then((response)=> response.json());
 const socialPromise = fetch("social.json").then((response)=> response.json());

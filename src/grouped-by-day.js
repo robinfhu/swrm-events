@@ -21,6 +21,8 @@ function EventsList(props) {
     </div>
 }
 
+// Shows all events grouped by the day they occur.
+// Date key format is YYYY-MM-DD, which is how it's shown in the URL.
 export default function GroupedByDay(props) {
     let {path, url} = useRouteMatch();
     let today = new Date();

@@ -52,6 +52,7 @@ export default class Sessions {
         return this.data.filter((item)=> item["Parent"] === parentId);
     }
 
+    // Removes trailing hyphens from a string.
     removeTrailing(str) {
         return str.trim().replace(/\-$/,'').trim();
     }
